@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+    <script type="application/javascript">
+
+    
+    
+    //Chat container creation
+    const chatContainer = document.createElement('div')
+    chatContainer.textContent = 'This is a new div.'
+    document.body.appendChild(chatContainer)
+
+    //Chat container style
+    chatContainer.style.width = '100%';
+    chatContainer.style.maxWidth = '600px';
+    chatContainer.style.margin = '0 auto'; // Center the chat container
+    chatContainer.style.height = '400px';
+    chatContainer.style.overflowY = 'scroll'; // Enable vertical scroll
+    chatContainer.style.backgroundColor = '#f0f0f0';
+    chatContainer.style.border = '10px solid #ccc';
+    chatContainer.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
+    chatContainer.style.padding = '10px';
+
+    //Submit and message box div creation
+    const functionContainer = document.createElement('div')
+    chatContainer.textContent = 'This is the chat box'
+    document.body.appendChild(functionContainer)
+
+    functionContainer.style.width = '100%';
+    functionContainer.style.maxWidth = '600px';
+    functionContainer.style.margin = '0 auto'; // Center the chat container
+    functionContainer.style.height = '200px';
+    functionContainer.style.overflowY = 'scroll'; // Enable vertical scroll
+    functionContainer.style.backgroundColor = '#f0f0f0';
+    functionContainer.style.border = '10px solid red';
+    functionContainer.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
+    functionContainer.style.padding = '5px';
+
+
+
+    //Unorderdered list creation
+    const ul = document.createElement('ul')
+    document.body.append(ul)
+
+    // forms to create a multi-line text input field, where users can type text
+    const t = document.createElement('textarea')
+    document.body.append(t)
+    
+    //adding button
+    const b = document.createElement('button')
+    b.append('SEND')
+    document.body.append(b)
+
+
+    const getMessages = async () => {
+      const response = await fetch('https://chat.tiburoncin.lat/messages')
+      const messages = await response.json()
+      
+      messages.reverse().forEach((message) => {
+        const li = document.createElement('li')
+        li.append(`${message.username}: ${message.message}`)
+        ul.append(li)
+
+        const h3 = document.createElement('h3')
+        h3.textContent = message.username +' '+message.message
+        chatContainer.appendChild(h3)
+      })
+    }
+
+    const postMessage = async () => {
+      console.log(t.value)
+      const body = {
+        username: 'Dennis',
+        message: t.value,
+      }
+      const response = await fetch('https://chat.tiburoncin.lat/messages',
+      {
+        method: 'POST',
+        body: JSON.stringify(body)
+      })
+      ul.innerHTML = ""
+      getMessages()
+    }
+
+    getMessages()
+
+    b.addEventListener('click', postMessage)
+    setInterval(
+      () => {
+        getMessages()
+      },5000
+    )
+    </script>
+  </body>
+</html>
