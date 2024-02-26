@@ -5,11 +5,10 @@
   <body>
     <script type="application/javascript">
 
-    
-    
+    document.body.style.backgroundColor = 'lightblue';
+
     //Chat container creation
     const chatContainer = document.createElement('div')
-    chatContainer.textContent = 'This is a new div.'
     document.body.appendChild(chatContainer)
 
     //Chat container style
@@ -25,19 +24,18 @@
 
     //Submit and message box div creation
     const functionContainer = document.createElement('div')
-    chatContainer.textContent = 'This is the chat box'
     document.body.appendChild(functionContainer)
 
     functionContainer.style.width = '100%';
     functionContainer.style.maxWidth = '600px';
     functionContainer.style.margin = '0 auto'; // Center the chat container
-    functionContainer.style.height = '200px';
-    functionContainer.style.overflowY = 'scroll'; // Enable vertical scroll
+    functionContainer.style.height = '70px';
     functionContainer.style.backgroundColor = '#f0f0f0';
-    functionContainer.style.border = '10px solid red';
+    functionContainer.style.border = '15px solid rgb(0,0,0)';
     functionContainer.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
     functionContainer.style.padding = '5px';
-
+    functionContainer.style.display = 'flex';
+    functionContainer.style.borderRadius = '0px 0px 50px 50px'
 
 
     //Unorderdered list creation
@@ -46,12 +44,25 @@
 
     // forms to create a multi-line text input field, where users can type text
     const t = document.createElement('textarea')
-    document.body.append(t)
+    t.style.fontSize = '16px'
+    t.style.fontFamily = "'Segoe UI', 'Helvetica Neue', Roboto, sans-serif"; // Adjust font family as needed
+    t.maxLength = 140; //max len in message
+    t.style.width = '90%';
+    t.style.height = '90%';
+    t.style.alignItems = 'center'
+    t.style.alignContent = 'center'
+    t.style.borderRadius = '0px 0px 0px 30px'
+    functionContainer.appendChild(t)
     
     //adding button
     const b = document.createElement('button')
+    b.style.width = '15%';
+    b.style.height = '100%';
+    b.style.alignItems = 'center'
+    b.style.alignContent = 'center'
+    b.style.borderRadius = '0px 0px 30px 0px'
     b.append('SEND')
-    document.body.append(b)
+    functionContainer.appendChild(b)
 
 
     const getMessages = async () => {
@@ -60,11 +71,12 @@
       
       messages.reverse().forEach((message) => {
         const li = document.createElement('li')
-        li.append(`${message.username}: ${message.message}`)
-        ul.append(li)
+        //li.append(`${message.username}: ${message.message}`)
+        //ul.append(li)
 
         const h3 = document.createElement('h3')
-        h3.textContent = message.username +' '+message.message
+        h3.style.fontFamily = "'Segoe UI', 'Helvetica Neue', Roboto, sans-serif";
+        h3.textContent = message.username +': '+message.message
         chatContainer.appendChild(h3)
       })
     }
