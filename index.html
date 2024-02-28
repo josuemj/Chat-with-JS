@@ -78,6 +78,8 @@
         h3.style.fontFamily = "'Segoe UI', 'Helvetica Neue', Roboto, sans-serif";
         h3.textContent = message.username +': '+message.message
         chatContainer.appendChild(h3)
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+
       })
     }
 
